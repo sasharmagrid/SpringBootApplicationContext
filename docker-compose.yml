@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+
+  database:
+    image: postgres:13
+    container_name: gallery_db
+    restart: always
+    environment:
+      POSTGRES_USER: gallery_user
+      POSTGRES_PASSWORD: gallery_pass
+      POSTGRES_DB: gallery_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:
