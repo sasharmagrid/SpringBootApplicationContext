@@ -19,7 +19,7 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    private final String uploadDir = "images";
+    private final String uploadDir = "/Users/sasharma/Documents/GalleryApp/src/main/java/images";
 
     public List<Image> getAllImages() {
         return imageRepository.findAll();

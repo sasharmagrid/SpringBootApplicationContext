@@ -30,4 +30,15 @@ public class FileController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(file);
     }
+
+    @GetMapping("/view/{id}")
+    public ResponseEntity<Resource> viewImage(@PathVariable Long id){
+        Resource file = imageService.loadFileAsResource(id);
+        if (file == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok()
+                .contentType(MediaTypeFactory.getMediaType(file).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                .body(file);
+    }
+
 }
